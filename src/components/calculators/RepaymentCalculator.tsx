@@ -159,7 +159,7 @@ export default function RepaymentCalculator() {
   const maxIoTerm = Math.min(10, Math.max(0, termYears - 1));
 
   return (
-    <div className="lg:grid lg:grid-cols-[11fr_9fr] lg:gap-8 space-y-8 lg:space-y-0 items-start">
+    <div className="lg:grid lg:grid-cols-2 lg:gap-8 space-y-8 lg:space-y-0 items-start">
       {/* ── Left: Inputs ── */}
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-8 space-y-7">
         <h3 className="text-navy font-semibold text-base pb-2 border-b border-gray-100">
@@ -249,7 +249,7 @@ export default function RepaymentCalculator() {
         {/* Repayment Type */}
         <div>
           <SectionLabel>还款类型</SectionLabel>
-          <div className="flex flex-wrap gap-3">
+          <div className="grid grid-cols-2 gap-3">
             {(
               [
                 ["pi", "本金 + 利息"],
@@ -304,7 +304,7 @@ export default function RepaymentCalculator() {
         {/* Repayment Frequency */}
         <div>
           <SectionLabel>还款频率</SectionLabel>
-          <div className="flex flex-wrap gap-3">
+          <div className="grid grid-cols-3 gap-3">
             {(Object.keys(FREQ) as FrequencyType[]).map((val) => (
               <label key={val} className={chipCls(frequency === val)}>
                 <input
