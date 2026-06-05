@@ -248,25 +248,40 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
 
   return (
     <>
-      {/* JSON-LD */}
+      {/* Article JSON-LD */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      {/* BreadcrumbList JSON-LD */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "首页", item: SITE_URL },
+              { "@type": "ListItem", position: 2, name: "贷款资讯", item: `${SITE_URL}/news` },
+              { "@type": "ListItem", position: 3, name: meta.title },
+            ],
+          }),
+        }}
       />
 
       {/* Breadcrumb */}
       <nav className="bg-gray-50 border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
-          <ol className="flex items-center gap-2 text-xs text-gray-400 flex-wrap">
+          <ol className="flex items-center gap-1.5 text-xs text-gray-400 flex-wrap">
             <li>
               <Link href="/" className="hover:text-navy transition-colors">首页</Link>
             </li>
-            <li>/</li>
+            <li className="select-none">&gt;</li>
             <li>
               <Link href="/news" className="hover:text-navy transition-colors">贷款资讯</Link>
             </li>
-            <li>/</li>
-            <li className="text-gray-600 truncate max-w-[200px] sm:max-w-none">{meta.title}</li>
+            <li className="select-none">&gt;</li>
+            <li className="text-gray-700 font-medium truncate max-w-[200px] sm:max-w-xs lg:max-w-none">{meta.title}</li>
           </ol>
         </div>
       </nav>
