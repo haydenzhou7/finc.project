@@ -230,40 +230,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 2. Stats ─────────────────────────────────────────────────────────── */}
-      <section className="bg-warm-white py-8 sm:py-14">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-gray-200">
-            {[
-              { number: "700+", label: "服务客户", sublabel: "Clients" },
-              {
-                number: "1,100+",
-                label: "成功案例",
-                sublabel: "Cases Settled",
-              },
-              {
-                number: "5年+",
-                label: "专业经验",
-                sublabel: "Years of Experience",
-              },
-            ].map((stat) => (
-              <div key={stat.label} className="text-center py-6 sm:py-10 px-4">
-                <div className="text-5xl sm:text-6xl font-bold text-navy leading-none mb-3">
-                  {stat.number}
-                </div>
-                <div className="text-gray-800 font-medium text-sm sm:text-base">
-                  {stat.label}
-                </div>
-                <div className="text-gray-400 text-xs sm:text-sm mt-0.5">
-                  {stat.sublabel}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── 3. Why FINC ──────────────────────────────────────────────────────── */}
+      {/* ── 2. Why FINC ──────────────────────────────────────────────────────── */}
       <section className="bg-white py-12 lg:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl sm:text-4xl font-bold text-navy text-center mb-8 sm:mb-14">
@@ -290,6 +257,53 @@ export default function HomePage() {
                 </div>
               );
             })}
+          </div>
+        </div>
+      </section>
+
+      {/* ── 3. 2026 Rates ────────────────────────────────────────────────────── */}
+      <section className="bg-navy py-12 lg:py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-8 sm:mb-10">
+            <span className="inline-flex items-center bg-coral/15 border border-coral/30 text-coral rounded-full px-4 py-1.5 text-xs font-semibold mb-4 tracking-wide uppercase">
+              每月更新 · 数据来自各大银行官网
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-3">
+              2026年最新澳洲房贷利率
+            </h2>
+            <p className="text-white/55 text-base">
+              四大银行自住房还本付息浮动利率对比（RBA 现金利率：4.35%）
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+            {[
+              { bank: "CBA",     rate: "6.17%" },
+              { bank: "Westpac", rate: "6.17%" },
+              { bank: "ANZ",     rate: "6.12%" },
+              { bank: "NAB",     rate: "6.09%" },
+            ].map(({ bank, rate }) => (
+              <div
+                key={bank}
+                className="bg-white/5 border border-white/10 rounded-2xl p-5 sm:p-6 text-center hover:bg-white/10 transition-colors duration-200"
+              >
+                <p className="text-white/50 text-sm font-medium mb-3">{bank}</p>
+                <p className="text-3xl sm:text-4xl font-bold text-coral leading-none mb-2">{rate}</p>
+                <p className="text-white/35 text-xs">自住房 PI 浮动</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center">
+            <p className="text-white/30 text-xs mb-5">
+              ※ 以上利率仅供参考，实际利率因客户资质、LVR 及贷款产品而异。
+            </p>
+            <Link
+              href="/news/australia-mortgage-rates"
+              className="inline-flex items-center gap-2 bg-coral hover:bg-coral/90 text-white font-semibold px-8 py-3.5 rounded-lg transition-all duration-200 shadow-lg"
+            >
+              查看完整利率表及市场分析 →
+            </Link>
           </div>
         </div>
       </section>
@@ -392,33 +406,37 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 6b. Rate Quick-Entry Banner ──────────────────────────────────────── */}
-      {/* MONTHLY UPDATE: change the rate numbers below each month */}
-      <section className="bg-navy/5 border-y border-navy/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <Link
-            href="/news/australia-mortgage-rates"
-            className="flex items-center justify-between gap-4 group"
-          >
-            <div className="flex items-center gap-3 min-w-0">
-              <span className="text-xl shrink-0">📊</span>
-              <p className="text-sm text-navy font-medium truncate">
-                <span className="font-semibold">2026年6月最新利率</span>
-                <span className="text-gray-500 hidden sm:inline"> — CBA 6.14% 起，Westpac 6.09% 起，Macquarie 5.99% 起</span>
-              </p>
-            </div>
-            <span className="shrink-0 text-sm text-coral font-semibold group-hover:underline whitespace-nowrap">
-              查看全部利率 →
-            </span>
-          </Link>
+      {/* ── 7. Stats ─────────────────────────────────────────────────────────── */}
+      <section className="bg-warm-white py-8 sm:py-14">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-gray-200">
+            {[
+              { number: "700+",   label: "服务客户",  sublabel: "Clients" },
+              { number: "1,100+", label: "成功案例",  sublabel: "Cases Settled" },
+              { number: "5年+",   label: "专业经验",  sublabel: "Years of Experience" },
+            ].map((stat) => (
+              <div key={stat.label} className="text-center py-6 sm:py-10 px-4">
+                <div className="text-5xl sm:text-6xl font-bold text-navy leading-none mb-3">
+                  {stat.number}
+                </div>
+                <div className="text-gray-800 font-medium text-sm sm:text-base">
+                  {stat.label}
+                </div>
+                <div className="text-gray-400 text-xs sm:text-sm mt-0.5">
+                  {stat.sublabel}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* ── 7. Testimonials ──────────────────────────────────────────────────── */}
+      {/* ── 8. Testimonials ──────────────────────────────────────────────────── */}
       <section className="bg-white py-12 lg:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl sm:text-4xl font-bold text-navy text-center mb-8 sm:mb-12">
             客户真实评价
+
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
