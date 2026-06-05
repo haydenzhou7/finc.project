@@ -4,7 +4,6 @@ import { useState } from "react";
 import Link from "next/link";
 
 const navLinks = [
-  { label: "关于我们", href: "/about" },
   { label: "贷款资讯", href: "/news" },
   { label: "贷款计算器", href: "/calculators" },
 ];
@@ -38,6 +37,12 @@ export default function Header() {
               className="bg-coral hover:bg-coral/90 text-white px-4 py-2 rounded-full text-sm font-semibold transition-all duration-200"
             >
               立即咨询
+            </Link>
+            <Link
+              href="/about"
+              className="text-white/80 hover:text-white text-sm font-medium transition-colors duration-200"
+            >
+              关于我们
             </Link>
           </nav>
 
@@ -106,10 +111,17 @@ export default function Header() {
           ))}
           <Link
             href="/contact"
-            className="block bg-coral text-white text-center py-3 rounded-full text-sm font-semibold mt-3 mb-1"
+            className="block bg-coral text-white text-center py-3 rounded-full text-sm font-semibold mt-3"
             onClick={() => setIsOpen(false)}
           >
             立即咨询
+          </Link>
+          <Link
+            href="/about"
+            className="block text-white/80 hover:text-white py-3 text-sm font-medium border-b border-white/5"
+            onClick={() => setIsOpen(false)}
+          >
+            关于我们
           </Link>
           <div className="pt-2">
             <a
