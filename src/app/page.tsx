@@ -531,7 +531,7 @@ export default function HomePage() {
       {/* ── 9. Bottom CTA ────────────────────────────────────────────────────── */}
       <section className="bg-navy py-12 lg:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-8">
+          <div className="flex flex-col items-center text-center gap-6">
             <div>
               <h2 className="text-3xl sm:text-4xl font-bold text-white mb-3">
                 准备好开始了吗？
@@ -540,14 +540,12 @@ export default function HomePage() {
                 免费咨询，无任何义务，今天就迈出第一步。
               </p>
             </div>
-            <div className="shrink-0">
-              <Link
-                href="/contact"
-                className="bg-coral hover:bg-coral/90 text-white px-8 py-4 rounded-lg font-semibold text-base transition-all duration-200 shadow-lg inline-flex items-center gap-2 whitespace-nowrap"
-              >
-                立即预约咨询 →
-              </Link>
-            </div>
+            <Link
+              href="/contact"
+              className="bg-coral hover:bg-coral/90 text-white px-8 py-4 rounded-lg font-semibold text-base transition-all duration-200 shadow-lg inline-flex items-center gap-2 whitespace-nowrap"
+            >
+              立即预约咨询 →
+            </Link>
           </div>
         </div>
       </section>
