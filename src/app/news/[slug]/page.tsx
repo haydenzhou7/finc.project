@@ -329,24 +329,18 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
                 </div>
               )}
 
-              <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-gray-400">
-                {displayDate && (
-                  <>
-                    <span className="flex items-center gap-1.5">
-                      <svg className="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 9v7.5" />
-                      </svg>
-                      {meta.lastModified ? (
-                        <span>最后更新：<time dateTime={meta.lastModified}>{formatDate(meta.lastModified)}</time></span>
-                      ) : (
-                        <time dateTime={meta.date}>{formatDate(meta.date)}</time>
-                      )}
-                    </span>
-                    <span>·</span>
-                  </>
-                )}
-                <span>FINC HOME LOANS</span>
-              </div>
+              {!isRateArticle && displayDate && (
+                <div className="flex items-center gap-1.5 text-sm text-gray-400">
+                  <svg className="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 9v7.5" />
+                  </svg>
+                  {meta.lastModified ? (
+                    <span>最后更新：<time dateTime={meta.lastModified}>{formatDate(meta.lastModified)}</time></span>
+                  ) : (
+                    <time dateTime={meta.date}>{formatDate(meta.date)}</time>
+                  )}
+                </div>
+              )}
             </header>
 
             {/* MDX body */}
