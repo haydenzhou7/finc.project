@@ -1,3 +1,5 @@
+import fs from "fs";
+import path from "path";
 import Link from "next/link";
 import FaqAccordion from "@/components/FaqAccordion";
 import {
@@ -171,7 +173,51 @@ function HomeFaq() {
   );
 }
 
+// ── Pull live rates from the MDX article at build time ───────────────────────
+
+function getMortgageRates() {
+  try {
+    const raw = fs.readFileSync(
+      path.join(process.cwd(), "src/content/posts/australia-mortgage-rates.mdx"),
+      "utf-8"
+    );
+    // Frontmatter
+    const fm: Record<string, string> = {};
+    const fmMatch = raw.match(/^---\r?\n([\s\S]*?)\r?\n---/);
+    if (fmMatch) {
+      for (const line of fmMatch[1].split("\n")) {
+        const colon = line.indexOf(":");
+        if (colon === -1) continue;
+        fm[line.slice(0, colon).trim()] = line.slice(colon + 1).trim().replace(/^["']|["']$/g, "");
+      }
+    }
+    // Variable rate rows from VARIABLE_START block
+    const varSection = raw.match(/VARIABLE_START \*\/\}([\s\S]*?)\{\/\* VARIABLE_END/)?.[1] ?? "";
+    const varRows = varSection.split("\n").filter((l) => /^\|[^-]/.test(l.trim()) && !l.includes("银行"));
+    const NAMES: Record<number, string> = { 0: "CBA", 1: "Westpac", 2: "ANZ", 3: "NAB" };
+    const banks = varRows.slice(0, 4).map((row, i) => {
+      const cells = row.split("|").map((c) => c.trim()).filter(Boolean);
+      const raw_rate = cells[1] ?? "";
+      const rate = raw_rate.replace(/\*\*/g, "").trim(); // keep the % sign
+      return { bank: NAMES[i] ?? "", rate };
+    });
+    return { rba: fm.rbaCashRate ?? "4.35", rbaNote: fm.rbaNote ?? "", banks };
+  } catch {
+    return {
+      rba: "4.35",
+      rbaNote: "",
+      banks: [
+        { bank: "CBA", rate: "6.17%" },
+        { bank: "Westpac", rate: "6.17%" },
+        { bank: "ANZ", rate: "6.12%" },
+        { bank: "NAB", rate: "6.09%" },
+      ],
+    };
+  }
+}
+
 export default function HomePage() {
+  const rates = getMortgageRates();
   return (
     <>
       {/* ── 1. Hero ─────────────────────────────────────────────────────────── */}
@@ -264,6 +310,7 @@ export default function HomePage() {
       {/* ── 3. 2026 Rates ────────────────────────────────────────────────────── */}
       <section className="bg-navy py-12 lg:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Header */}
           <div className="text-center mb-8 sm:mb-10">
             <span className="inline-flex items-center bg-coral/15 border border-coral/30 text-coral rounded-full px-4 py-1.5 text-xs font-semibold mb-4 tracking-wide uppercase">
               每月更新 · 数据来自各大银行官网
@@ -271,24 +318,35 @@ export default function HomePage() {
             <h2 className="text-3xl sm:text-4xl font-bold text-white mb-3">
               2026年最新澳洲房贷利率
             </h2>
-            <p className="text-white/55 text-base">
-              四大银行自住房还本付息浮动利率对比（RBA 现金利率：4.35%）
+            <p className="text-white/50 text-base">
+              四大银行自住房还本付息浮动利率对比
             </p>
           </div>
 
+          {/* RBA Cash Rate — prominent standalone row */}
+          <div className="max-w-2xl mx-auto mb-8">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6 bg-coral/10 border border-coral/25 rounded-2xl px-6 py-5">
+              <div className="shrink-0 text-center sm:text-left">
+                <p className="text-coral/70 text-xs font-semibold uppercase tracking-widest mb-1">RBA 现金利率</p>
+                <p className="text-5xl font-bold text-coral leading-none">{rates.rba}%</p>
+              </div>
+              {rates.rbaNote && (
+                <p className="text-white/55 text-sm leading-relaxed sm:border-l sm:border-white/10 sm:pl-6">
+                  {rates.rbaNote}
+                </p>
+              )}
+            </div>
+          </div>
+
+          {/* Bank rate cards */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-            {[
-              { bank: "CBA",     rate: "6.17%" },
-              { bank: "Westpac", rate: "6.17%" },
-              { bank: "ANZ",     rate: "6.12%" },
-              { bank: "NAB",     rate: "6.09%" },
-            ].map(({ bank, rate }) => (
+            {rates.banks.map(({ bank, rate }) => (
               <div
                 key={bank}
                 className="bg-white/5 border border-white/10 rounded-2xl p-5 sm:p-6 text-center hover:bg-white/10 transition-colors duration-200"
               >
                 <p className="text-white/50 text-sm font-medium mb-3">{bank}</p>
-                <p className="text-3xl sm:text-4xl font-bold text-coral leading-none mb-2">{rate}</p>
+                <p className="text-3xl sm:text-4xl font-bold text-white leading-none mb-2">{rate}</p>
                 <p className="text-white/35 text-xs">自住房 PI 浮动</p>
               </div>
             ))}
