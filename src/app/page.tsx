@@ -402,8 +402,8 @@ export default function HomePage() {
             <div className="flex items-center gap-3 min-w-0">
               <span className="text-xl shrink-0">📊</span>
               <p className="text-sm text-navy font-medium truncate">
-                <span className="font-semibold">2025年6月最新利率</span>
-                <span className="text-gray-500 hidden sm:inline"> — CBA 5.74% 起，Westpac 5.69% 起，Macquarie 5.59% 起</span>
+                <span className="font-semibold">2026年6月最新利率</span>
+                <span className="text-gray-500 hidden sm:inline"> — CBA 6.14% 起，Westpac 6.09% 起，Macquarie 5.99% 起</span>
               </p>
             </div>
             <span className="shrink-0 text-sm text-coral font-semibold group-hover:underline whitespace-nowrap">

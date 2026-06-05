@@ -148,13 +148,13 @@ export async function POST(req: NextRequest) {
 
   // ── Replace table sections ───────────────────────────────────────────────
   updated = updated.replace(
-    /<!--VARIABLE_START-->[\s\S]*?<!--VARIABLE_END-->/,
-    `<!--VARIABLE_START-->\n${buildVariableTable(rates.variable)}\n<!--VARIABLE_END-->`
+    /\{\/\* VARIABLE_START \*\/\}[\s\S]*?\{\/\* VARIABLE_END \*\/\}/,
+    `{/* VARIABLE_START */}\n\n${buildVariableTable(rates.variable)}\n\n{/* VARIABLE_END */}`
   );
 
   updated = updated.replace(
-    /<!--FIXED_START-->[\s\S]*?<!--FIXED_END-->/,
-    `<!--FIXED_START-->\n${buildFixedTable(rates.fixed)}\n<!--FIXED_END-->`
+    /\{\/\* FIXED_START \*\/\}[\s\S]*?\{\/\* FIXED_END \*\/\}/,
+    `{/* FIXED_START */}\n\n${buildFixedTable(rates.fixed)}\n\n{/* FIXED_END */}`
   );
 
   // ── Commit to GitHub ─────────────────────────────────────────────────────
