@@ -4,9 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 interface VariableRateRow {
   owner_pi: string;
-  owner_io: string;
   invest_pi: string;
-  invest_io: string;
 }
 
 interface FixedRateRow {
@@ -31,14 +29,10 @@ interface RequestBody {
 // ── Table builders ────────────────────────────────────────────────────────────
 
 const VARIABLE_BANKS = [
-  { key: "cba",       name: "Commonwealth Bank (CBA)" },
-  { key: "westpac",   name: "Westpac" },
-  { key: "anz",       name: "ANZ" },
-  { key: "nab",       name: "NAB" },
-  { key: "macquarie", name: "Macquarie" },
-  { key: "ing",       name: "ING" },
-  { key: "stgeorge",  name: "St.George" },
-  { key: "suncorp",   name: "Suncorp" },
+  { key: "cba",     name: "Commonwealth Bank (CBA)" },
+  { key: "westpac", name: "Westpac" },
+  { key: "anz",     name: "ANZ" },
+  { key: "nab",     name: "NAB" },
 ];
 
 const FIXED_BANKS = [
@@ -60,8 +54,8 @@ function buildVariableTable(data: Record<string, VariableRateRow>): string {
   ].join("\n");
 
   const rows = VARIABLE_BANKS.map(({ key, name }) => {
-    const r = data[key] ?? { owner_pi: "", owner_io: "", invest_pi: "", invest_io: "" };
-    return `| ${name} | **${fmt(r.owner_pi)}** | ${fmt(r.owner_io)} | **${fmt(r.invest_pi)}** | ${fmt(r.invest_io)} |`;
+    const r = data[key] ?? { owner_pi: "", invest_pi: "" };
+    return `| ${name} | **${fmt(r.owner_pi)}** | [获取利率](/contact) | **${fmt(r.invest_pi)}** | [获取利率](/contact) |`;
   }).join("\n");
 
   return `${header}\n${rows}`;

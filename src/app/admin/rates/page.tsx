@@ -4,16 +4,16 @@ import { useState } from "react";
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
-interface VariableRow { owner_pi: string; owner_io: string; invest_pi: string; invest_io: string }
+interface VariableRow { owner_pi: string; invest_pi: string }
 interface FixedRow    { y1: string; y2: string; y3: string; y5: string }
 
 // ── Default data (current rates — update after each submission) ───────────────
 
 const DEFAULT_VARIABLE: Record<string, VariableRow> = {
-  cba:     { owner_pi: "5.74", owner_io: "6.14", invest_pi: "6.14", invest_io: "6.54" },
-  westpac: { owner_pi: "5.69", owner_io: "6.09", invest_pi: "6.09", invest_io: "6.49" },
-  anz:     { owner_pi: "5.79", owner_io: "6.19", invest_pi: "6.19", invest_io: "6.59" },
-  nab:     { owner_pi: "5.84", owner_io: "6.24", invest_pi: "6.24", invest_io: "6.64" },
+  cba:     { owner_pi: "5.74", invest_pi: "6.14" },
+  westpac: { owner_pi: "5.69", invest_pi: "6.09" },
+  anz:     { owner_pi: "5.79", invest_pi: "6.19" },
+  nab:     { owner_pi: "5.84", invest_pi: "6.24" },
 };
 
 const DEFAULT_FIXED: Record<string, FixedRow> = {
@@ -192,13 +192,7 @@ export default function AdminRatesPage() {
                     自住<br /><span className="font-normal opacity-75">还本付息 ★</span>
                   </th>
                   <th className="px-3 py-2.5 text-center font-semibold text-xs min-w-[110px]">
-                    自住<br /><span className="font-normal opacity-75">纯利息</span>
-                  </th>
-                  <th className="px-3 py-2.5 text-center font-semibold text-xs min-w-[110px]">
                     投资<br /><span className="font-normal opacity-75">还本付息 ★</span>
-                  </th>
-                  <th className="px-3 py-2.5 text-center font-semibold text-xs min-w-[110px]">
-                    投资<br /><span className="font-normal opacity-75">纯利息</span>
                   </th>
                 </tr>
               </thead>
@@ -210,13 +204,7 @@ export default function AdminRatesPage() {
                       <RateInput highlight value={variable[key]?.owner_pi ?? ""} onChange={(v) => setVar(key, "owner_pi", v)} />
                     </td>
                     <td className="px-3 py-2">
-                      <RateInput value={variable[key]?.owner_io ?? ""} onChange={(v) => setVar(key, "owner_io", v)} />
-                    </td>
-                    <td className="px-3 py-2">
                       <RateInput highlight value={variable[key]?.invest_pi ?? ""} onChange={(v) => setVar(key, "invest_pi", v)} />
-                    </td>
-                    <td className="px-3 py-2">
-                      <RateInput value={variable[key]?.invest_io ?? ""} onChange={(v) => setVar(key, "invest_io", v)} />
                     </td>
                   </tr>
                 ))}
