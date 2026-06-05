@@ -10,14 +10,10 @@ interface FixedRow    { y1: string; y2: string; y3: string; y5: string }
 // ── Default data (current rates — update after each submission) ───────────────
 
 const DEFAULT_VARIABLE: Record<string, VariableRow> = {
-  cba:       { owner_pi: "5.74", owner_io: "6.14", invest_pi: "6.14", invest_io: "6.54" },
-  westpac:   { owner_pi: "5.69", owner_io: "6.09", invest_pi: "6.09", invest_io: "6.49" },
-  anz:       { owner_pi: "5.79", owner_io: "6.19", invest_pi: "6.19", invest_io: "6.59" },
-  nab:       { owner_pi: "5.84", owner_io: "6.24", invest_pi: "6.24", invest_io: "6.64" },
-  macquarie: { owner_pi: "5.59", owner_io: "5.99", invest_pi: "5.99", invest_io: "6.39" },
-  ing:       { owner_pi: "5.64", owner_io: "6.04", invest_pi: "6.04", invest_io: "6.44" },
-  stgeorge:  { owner_pi: "5.74", owner_io: "6.14", invest_pi: "6.14", invest_io: "6.54" },
-  suncorp:   { owner_pi: "5.69", owner_io: "6.09", invest_pi: "6.09", invest_io: "6.49" },
+  cba:     { owner_pi: "5.74", owner_io: "6.14", invest_pi: "6.14", invest_io: "6.54" },
+  westpac: { owner_pi: "5.69", owner_io: "6.09", invest_pi: "6.09", invest_io: "6.49" },
+  anz:     { owner_pi: "5.79", owner_io: "6.19", invest_pi: "6.19", invest_io: "6.59" },
+  nab:     { owner_pi: "5.84", owner_io: "6.24", invest_pi: "6.24", invest_io: "6.64" },
 };
 
 const DEFAULT_FIXED: Record<string, FixedRow> = {
@@ -28,14 +24,10 @@ const DEFAULT_FIXED: Record<string, FixedRow> = {
 };
 
 const VARIABLE_BANKS = [
-  { key: "cba",       label: "Commonwealth Bank (CBA)" },
-  { key: "westpac",   label: "Westpac" },
-  { key: "anz",       label: "ANZ" },
-  { key: "nab",       label: "NAB" },
-  { key: "macquarie", label: "Macquarie" },
-  { key: "ing",       label: "ING" },
-  { key: "stgeorge",  label: "St.George" },
-  { key: "suncorp",   label: "Suncorp" },
+  { key: "cba",     label: "Commonwealth Bank (CBA)" },
+  { key: "westpac", label: "Westpac" },
+  { key: "anz",     label: "ANZ" },
+  { key: "nab",     label: "NAB" },
 ];
 
 const FIXED_BANKS = [
