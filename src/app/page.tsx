@@ -331,7 +331,7 @@ export default function HomePage() {
                 <p className="text-5xl font-bold text-coral leading-none">{rates.rba}%</p>
               </div>
               {rates.rbaNote && (
-                <p className="text-white/55 text-sm leading-relaxed sm:border-l sm:border-white/10 sm:pl-6">
+                <p className="text-white/55 text-sm leading-relaxed text-center sm:text-left sm:border-l sm:border-white/10 sm:pl-6">
                   {rates.rbaNote}
                 </p>
               )}
