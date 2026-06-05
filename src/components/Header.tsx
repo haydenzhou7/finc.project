@@ -18,8 +18,8 @@ export default function Header() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center shrink-0">
-            <span style={{ fontFamily: "Georgia, serif", fontWeight: 700, color: "white", fontSize: "1.5rem" }}>FINC</span>
-            <span style={{ fontFamily: "Georgia, serif", fontWeight: 700, color: "#E8634A", fontSize: "1.5rem" }}>.</span>
+            <span style={{ fontFamily: "Georgia, serif", fontWeight: 700, color: "white", fontSize: "1.75rem" }}>FINC</span>
+            <span style={{ fontFamily: "Georgia, serif", fontWeight: 700, color: "#E8634A", fontSize: "1.75rem" }}>.</span>
           </Link>
 
           {/* Desktop Nav */}

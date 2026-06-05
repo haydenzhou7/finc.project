@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import type { PostMeta } from "@/lib/posts";
 
@@ -107,7 +108,12 @@ function PostCard({ post }: { post: PostMeta }) {
 // ── Main component ────────────────────────────────────────────────────────────
 
 export default function FilteredPostsList({ posts }: { posts: PostMeta[] }) {
-  const [activeTab, setActiveTab] = useState(0);
+  const searchParams = useSearchParams();
+  const categoryParam = searchParams.get("category");
+  const initialTab = categoryParam
+    ? Math.max(0, TABS.findIndex((t) => t.label === categoryParam))
+    : 0;
+  const [activeTab, setActiveTab] = useState(initialTab);
 
   const visible = posts.filter(TABS[activeTab].match);
 

@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import Link from "next/link";
 import { getAllPosts } from "@/lib/posts";
 import FilteredPostsList from "@/components/FilteredPostsList";
@@ -27,7 +28,9 @@ export default function NewsPage() {
         {posts.length === 0 ? (
           <p className="text-center text-gray-400 py-20">暂无文章，敬请期待。</p>
         ) : (
-          <FilteredPostsList posts={posts} />
+          <Suspense>
+            <FilteredPostsList posts={posts} />
+          </Suspense>
         )}
       </section>
 
