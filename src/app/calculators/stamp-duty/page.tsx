@@ -441,7 +441,7 @@ function getGrant(state: State, price: number, propType: PropertyType, waLocatio
 
 function chipCls(selected: boolean) {
   return [
-    "px-4 py-2.5 rounded-lg border cursor-pointer text-sm transition-all duration-150 select-none",
+    "px-4 py-2.5 rounded-lg border cursor-pointer text-sm transition-all duration-150 select-none text-center",
     selected
       ? "border-coral bg-coral/5 text-coral font-medium"
       : "border-gray-200 text-gray-600 hover:border-gray-300 bg-white",
@@ -582,7 +582,7 @@ export default function StampDutyPage() {
       {/* ── Main ── */}
       <section className="bg-warm-white py-12 lg:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="lg:grid lg:grid-cols-[11fr_9fr] lg:gap-8 space-y-8 lg:space-y-0 items-start">
+          <div className="lg:grid lg:grid-cols-2 lg:gap-8 space-y-8 lg:space-y-0 items-start">
 
             {/* ── Left: Form ── */}
             <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-8 space-y-8">
@@ -624,7 +624,7 @@ export default function StampDutyPage() {
               {/* 买家类型 */}
               <div>
                 <SectionTitle>买家类型</SectionTitle>
-                <div className="flex flex-wrap gap-3">
+                <div className="grid grid-cols-3 gap-3">
                   {([["owner","自住"],["investor","投资"],["fhb","首次购房者"]] as [BuyerType,string][]).map(([val,label]) => (
                     <label key={val} className={chipCls(buyerType === val)}>
                       <input type="radio" className="sr-only" checked={buyerType === val} onChange={() => setBuyerType(val)} />
@@ -637,7 +637,7 @@ export default function StampDutyPage() {
               {/* 房产类型 */}
               <div>
                 <SectionTitle>房产类型</SectionTitle>
-                <div className="flex flex-wrap gap-3">
+                <div className="grid grid-cols-3 gap-3">
                   {([
                     ["established","现房（二手房）"],
                     ["new","新房（期房/新建）"],
@@ -704,7 +704,7 @@ export default function StampDutyPage() {
                         <p className="text-sm font-medium text-gray-700 mb-2.5">
                           是否符合退休换小房优惠？
                         </p>
-                        <div className="flex gap-3">
+                        <div className="grid grid-cols-2 gap-3">
                           {([["true","是"],["false","否"]] as [string,string][]).map(([val, label]) => (
                             <label key={val} className={chipCls(String(tasPensioner) === val)}>
                               <input type="radio" className="sr-only"
@@ -768,7 +768,7 @@ export default function StampDutyPage() {
                         <p className="text-sm font-medium text-gray-700 mb-2.5">
                           养老金持有人（Pensioner）
                         </p>
-                        <div className="flex gap-3">
+                        <div className="grid grid-cols-2 gap-3">
                           {([["true","是"],["false","否"]] as [string,string][]).map(([val,label]) => (
                             <label key={val} className={chipCls(String(actPensioner) === val)}>
                               <input type="radio" className="sr-only"
@@ -824,7 +824,7 @@ export default function StampDutyPage() {
                             <p className="text-sm font-medium text-gray-700 mb-2.5">
                               家庭受抚养子女数量
                             </p>
-                            <div className="flex flex-wrap gap-2">
+                            <div className="grid grid-cols-6 gap-2">
                               {([0,1,2,3,4,5] as number[]).map((n) => (
                                 <label key={n} className={chipCls(actChildren === n)}>
                                   <input type="radio" className="sr-only"
@@ -850,7 +850,7 @@ export default function StampDutyPage() {
                         <p className="text-sm font-medium text-gray-700 mb-2.5">
                           养老金持有人（Pensioner）
                         </p>
-                        <div className="flex gap-3">
+                        <div className="grid grid-cols-2 gap-3">
                           {([["true","是"],["false","否"]] as [string,string][]).map(([val,label]) => (
                             <label key={val} className={chipCls(String(vicPensioner) === val)}>
                               <input type="radio" className="sr-only"
@@ -868,7 +868,7 @@ export default function StampDutyPage() {
                       {/* Transaction type */}
                       <div>
                         <p className="text-sm font-medium text-gray-700 mb-2.5">交易方式</p>
-                        <div className="flex gap-3">
+                        <div className="grid grid-cols-2 gap-3">
                           {([["electronic","电子交易"],["paper","纸质交易"]] as [VicTxType,string][]).map(([val,label]) => (
                             <label key={val} className={chipCls(vicTxType === val)}>
                               <input type="radio" className="sr-only"
