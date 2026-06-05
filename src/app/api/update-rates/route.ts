@@ -79,6 +79,49 @@ function buildFixedTable(data: Record<string, FixedRateRow>): string {
   return `${header}\n${rows}\n${other}`;
 }
 
+// ── Parser (shared by GET and POST) ──────────────────────────────────────────
+
+function parseMdxRates(raw: string) {
+  // Frontmatter
+  const fm: Record<string, string> = {};
+  const fmMatch = raw.match(/^---\r?\n([\s\S]*?)\r?\n---/);
+  if (fmMatch) {
+    for (const line of fmMatch[1].split("\n")) {
+      const colon = line.indexOf(":");
+      if (colon === -1) continue;
+      fm[line.slice(0, colon).trim()] = line.slice(colon + 1).trim().replace(/^["']|["']$/g, "");
+    }
+  }
+
+  const num = (s: string) => s.replace(/\*\*/g, "").replace(/%$/, "").trim();
+
+  // Variable table rows (skip header + alignment rows)
+  const varSection = raw.match(/VARIABLE_START \*\/\}([\s\S]*?)\{\/\* VARIABLE_END/)?.[1] ?? "";
+  const varRows = varSection.split("\n").filter(l => /^\|[^-]/.test(l.trim()) && !l.includes("银行"));
+  const varKeys = ["cba", "westpac", "anz", "nab"];
+  const variable: Record<string, { owner_pi: string; owner_io: string; invest_pi: string; invest_io: string }> = {};
+  varRows.forEach((row, i) => {
+    const key = varKeys[i];
+    if (!key) return;
+    const cells = row.split("|").map(c => c.trim()).filter(Boolean);
+    variable[key] = { owner_pi: num(cells[1] ?? ""), owner_io: "", invest_pi: num(cells[3] ?? ""), invest_io: "" };
+  });
+
+  // Fixed table rows
+  const fixSection = raw.match(/FIXED_START \*\/\}([\s\S]*?)\{\/\* FIXED_END/)?.[1] ?? "";
+  const fixRows = fixSection.split("\n").filter(l => /^\|[^-]/.test(l.trim()) && !l.includes("银行") && !l.includes("其他"));
+  const fixKeys = ["cba", "westpac", "anz", "nab"];
+  const fixed: Record<string, { y1: string; y2: string; y3: string; y5: string }> = {};
+  fixRows.forEach((row, i) => {
+    const key = fixKeys[i];
+    if (!key) return;
+    const cells = row.split("|").map(c => c.trim()).filter(Boolean);
+    fixed[key] = { y1: num(cells[1] ?? ""), y2: num(cells[2] ?? ""), y3: num(cells[3] ?? ""), y5: num(cells[4] ?? "") };
+  });
+
+  return { rba: { rate: fm.rbaCashRate ?? "", note: fm.rbaNote ?? "" }, variable, fixed };
+}
+
 // ── Handler ───────────────────────────────────────────────────────────────────
 
 const GITHUB_API = "https://api.github.com";
@@ -88,6 +131,22 @@ const CN_MONTHS: Record<number, string> = {
   1: "一月", 2: "二月", 3: "三月", 4: "四月", 5: "五月", 6: "六月",
   7: "七月", 8: "八月", 9: "九月", 10: "十月", 11: "十一月", 12: "十二月",
 };
+
+export async function GET() {
+  const token = process.env.GITHUB_TOKEN;
+  const owner = process.env.GITHUB_OWNER;
+  const repo  = process.env.GITHUB_REPO;
+  if (!token || !owner || !repo) return NextResponse.json({ error: "未配置" }, { status: 500 });
+
+  const res = await fetch(`${GITHUB_API}/repos/${owner}/${repo}/contents/${FILE_PATH}`, {
+    headers: { Authorization: `Bearer ${token}`, Accept: "application/vnd.github+json", "X-GitHub-Api-Version": "2022-11-28" },
+    cache: "no-store",
+  });
+  if (!res.ok) return NextResponse.json({ error: "读取失败" }, { status: 502 });
+
+  const { content } = await res.json() as { content: string };
+  return NextResponse.json(parseMdxRates(Buffer.from(content, "base64").toString("utf-8")));
+}
 
 export async function POST(req: NextRequest) {
   // ── Auth ──────────────────────────────────────────────────────────────────

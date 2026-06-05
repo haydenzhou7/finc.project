@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -75,24 +75,27 @@ function RateInput({
 
 // ── Main page ─────────────────────────────────────────────────────────────────
 
-const STORAGE_KEY = "finc_admin_rates_v1";
-
-function loadSaved() {
-  if (typeof window === "undefined") return null;
-  try { return JSON.parse(localStorage.getItem(STORAGE_KEY) ?? "null"); } catch { return null; }
-}
-
 export default function AdminRatesPage() {
   const now = new Date();
-  const saved = loadSaved();
   const [year,     setYear]     = useState(String(now.getFullYear()));
   const [month,    setMonth]    = useState(String(now.getMonth() + 1));
   const [password, setPassword] = useState("");
-  const [rba,      setRba]      = useState<{ rate: string; note: string }>(saved?.rba      ?? { rate: "4.35", note: "2026年5月RBA议息会议决定加息25个基点" });
-  const [variable, setVariable] = useState<Record<string, VariableRow>>(saved?.variable ?? DEFAULT_VARIABLE);
-  const [fixed,    setFixed]    = useState<Record<string, FixedRow>>(saved?.fixed    ?? DEFAULT_FIXED);
+  const [rba,      setRba]      = useState<{ rate: string; note: string }>({ rate: "4.35", note: "2026年5月RBA议息会议决定加息25个基点" });
+  const [variable, setVariable] = useState<Record<string, VariableRow>>(DEFAULT_VARIABLE);
+  const [fixed,    setFixed]    = useState<Record<string, FixedRow>>(DEFAULT_FIXED);
   const [status,   setStatus]   = useState<"idle" | "loading" | "ok" | "error">("idle");
   const [errMsg,   setErrMsg]   = useState("");
+
+  useEffect(() => {
+    fetch("/api/update-rates")
+      .then((r) => r.json())
+      .then((data: { rba?: { rate: string; note: string }; variable?: Record<string, VariableRow>; fixed?: Record<string, FixedRow> }) => {
+        if (data.rba)      setRba(data.rba);
+        if (data.variable) setVariable(data.variable);
+        if (data.fixed)    setFixed(data.fixed);
+      })
+      .catch(() => {});
+  }, []);
 
   function setVar(bank: string, field: keyof VariableRow, val: string) {
     setVariable((prev) => ({ ...prev, [bank]: { ...prev[bank], [field]: val } }));
@@ -126,7 +129,6 @@ export default function AdminRatesPage() {
         setErrMsg(data.error ?? "未知错误");
         setStatus("error");
       } else {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify({ rba, variable, fixed }));
         setStatus("ok");
       }
     } catch (err) {
