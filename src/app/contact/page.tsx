@@ -176,7 +176,7 @@ export default function ContactPage() {
 
   function radioChipCls(selected: boolean) {
     return [
-      "flex items-center gap-2 px-4 py-2.5 rounded-lg border cursor-pointer",
+      "flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg border cursor-pointer",
       "transition-all duration-150 text-sm select-none",
       selected
         ? "border-coral bg-coral/5 text-coral font-medium"
@@ -261,7 +261,7 @@ export default function ContactPage() {
                     <p className="text-sm font-medium text-gray-700 mb-2">
                       联系方式偏好 <span className="text-coral">*</span>
                     </p>
-                    <div className="flex flex-wrap gap-3" id="preferredContact">
+                    <div className="grid grid-cols-3 gap-3" id="preferredContact">
                       {["电话", "微信", "邮件"].map((opt) => (
                         <label key={opt} className={radioChipCls(form.preferredContact === opt)}>
                           <input
@@ -569,11 +569,9 @@ export default function ContactPage() {
 
                   {/* 现有债务（多选 checkbox chips） */}
                   <div>
-                    <p className="text-sm font-medium text-gray-700 mb-2">
+                    <p className="flex items-center gap-1.5 text-sm font-medium text-gray-700 mb-2">
                       名下现有债务
-                      <span className="text-gray-400 font-normal ml-1.5 text-xs">
-                        可多选
-                      </span>
+                      <span className="text-gray-400 font-normal text-xs">可多选</span>
                     </p>
                     <div className="flex flex-wrap gap-3">
                       {["无", "有房贷", "有信用卡", "有其他贷款"].map((opt) => (
