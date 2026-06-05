@@ -2,21 +2,21 @@ import Link from "next/link";
 import Image from "next/image";
 
 const loanServices = [
-  { label: "住房贷款", href: "/services/home-loans" },
-  { label: "投资贷款", href: "/services/investment-loans" },
-  { label: "转贷", href: "/services/refinance" },
-  { label: "首次购房者", href: "/services/first-home-buyers" },
-  { label: "自雇贷款", href: "/services/self-employed" },
-  { label: "非居民贷款", href: "/services/non-resident" },
+  { label: "住房贷款", href: "/contact" },
+  { label: "投资贷款", href: "/contact" },
+  { label: "转贷", href: "/contact" },
+  { label: "首次购房者", href: "/contact" },
+  { label: "自雇贷款", href: "/contact" },
+  { label: "非居民贷款", href: "/contact" },
 ];
 
 const moreServices = [
-  { label: "商业贷款", href: "/services/commercial" },
-  { label: "建筑贷款", href: "/services/construction" },
-  { label: "开发贷款", href: "/services/development" },
-  { label: "过桥贷款", href: "/services/bridging" },
-  { label: "个人贷款", href: "/services/personal" },
-  { label: "车贷", href: "/services/car-loans" },
+  { label: "商业贷款", href: "/contact" },
+  { label: "建筑贷款", href: "/contact" },
+  { label: "开发贷款", href: "/contact" },
+  { label: "过桥贷款", href: "/contact" },
+  { label: "个人贷款", href: "/contact" },
+  { label: "车贷", href: "/contact" },
 ];
 
 export default function Footer() {
@@ -105,14 +105,7 @@ export default function Footer() {
                 <span>📞</span>
                 <span>立即电话咨询</span>
               </a>
-              <a
-                href="mailto:info@finchomeloans.com.au"
-                className="text-white/55 hover:text-coral transition-colors duration-200 flex items-center justify-center lg:justify-start gap-2"
-              >
-                <span className="shrink-0">✉️</span>
-                <span>info@finchomeloans.com.au</span>
-              </a>
-              <p className="text-white/55 flex items-center justify-center lg:justify-start gap-2">
+<p className="text-white/55 flex items-center justify-center lg:justify-start gap-2">
                 <span>📍</span>
                 <span>Australia</span>
               </p>

@@ -44,19 +44,19 @@ const features: { icon: LucideIcon; title: string; description: string }[] = [
   },
 ];
 
-const services: { title: string; subtitle: string; icon: LucideIcon }[] = [
-  { title: "住房贷款", subtitle: "Home Loans", icon: Home },
-  { title: "投资贷款", subtitle: "Investment Loans", icon: TrendingUp },
-  { title: "转贷", subtitle: "Refinance", icon: RefreshCw },
-  { title: "首次购房者", subtitle: "First Home Buyers", icon: Key },
-  { title: "自雇贷款", subtitle: "Self-Employed Loans", icon: Briefcase },
-  { title: "非居民贷款", subtitle: "Non-Resident Loans", icon: Globe },
-  { title: "商业贷款", subtitle: "Commercial Loans", icon: Building2 },
-  { title: "建筑贷款", subtitle: "Construction Loans", icon: HardHat },
-  { title: "开发贷款", subtitle: "Development Loans", icon: Landmark },
-  { title: "过桥贷款", subtitle: "Bridging Loans", icon: ArrowLeftRight },
-  { title: "个人贷款", subtitle: "Personal Loans", icon: User },
-  { title: "车贷", subtitle: "Car Loans", icon: Car },
+const services: { title: string; subtitle: string; icon: LucideIcon; href: string }[] = [
+  { title: "住房贷款", subtitle: "Home Loans", icon: Home, href: "/contact" },
+  { title: "投资贷款", subtitle: "Investment Loans", icon: TrendingUp, href: "/contact" },
+  { title: "转贷", subtitle: "Refinance", icon: RefreshCw, href: "/contact" },
+  { title: "首次购房者", subtitle: "First Home Buyers", icon: Key, href: "/contact" },
+  { title: "自雇贷款", subtitle: "Self-Employed Loans", icon: Briefcase, href: "/contact" },
+  { title: "非居民贷款", subtitle: "Non-Resident Loans", icon: Globe, href: "/contact" },
+  { title: "商业贷款", subtitle: "Commercial Loans", icon: Building2, href: "/contact" },
+  { title: "建筑贷款", subtitle: "Construction Loans", icon: HardHat, href: "/contact" },
+  { title: "开发贷款", subtitle: "Development Loans", icon: Landmark, href: "/contact" },
+  { title: "过桥贷款", subtitle: "Bridging Loans", icon: ArrowLeftRight, href: "/contact" },
+  { title: "个人贷款", subtitle: "Personal Loans", icon: User, href: "/contact" },
+  { title: "车贷", subtitle: "Car Loans", icon: Car, href: "/contact" },
 ];
 
 const steps = [
@@ -308,9 +308,10 @@ export default function HomePage() {
             {services.map((service) => {
               const Icon = service.icon;
               return (
-                <div
+                <Link
                   key={service.title}
-                  className="group bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-md transition-all duration-200 cursor-default"
+                  href={service.href}
+                  className="group bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-md transition-all duration-200"
                 >
                   {/* Orange top bar — reveals on hover */}
                   <div className="h-[3px] bg-coral opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -327,7 +328,7 @@ export default function HomePage() {
                     </h3>
                     <p className="text-gray-400 text-xs">{service.subtitle}</p>
                   </div>
-                </div>
+                </Link>
               );
             })}
           </div>
