@@ -29,14 +29,14 @@ interface RequestBody {
 // ── Table builders ────────────────────────────────────────────────────────────
 
 const VARIABLE_BANKS = [
-  { key: "cba",     name: "Commonwealth Bank (CBA)" },
+  { key: "cba",     name: "CBA" },
   { key: "westpac", name: "Westpac" },
   { key: "anz",     name: "ANZ" },
   { key: "nab",     name: "NAB" },
 ];
 
 const FIXED_BANKS = [
-  { key: "cba",     name: "Commonwealth Bank (CBA)" },
+  { key: "cba",     name: "CBA" },
   { key: "westpac", name: "Westpac" },
   { key: "anz",     name: "ANZ" },
   { key: "nab",     name: "NAB" },

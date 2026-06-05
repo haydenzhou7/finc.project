@@ -24,14 +24,14 @@ const DEFAULT_FIXED: Record<string, FixedRow> = {
 };
 
 const VARIABLE_BANKS = [
-  { key: "cba",     label: "Commonwealth Bank (CBA)" },
+  { key: "cba",     label: "CBA" },
   { key: "westpac", label: "Westpac" },
   { key: "anz",     label: "ANZ" },
   { key: "nab",     label: "NAB" },
 ];
 
 const FIXED_BANKS = [
-  { key: "cba",     label: "Commonwealth Bank (CBA)" },
+  { key: "cba",     label: "CBA" },
   { key: "westpac", label: "Westpac" },
   { key: "anz",     label: "ANZ" },
   { key: "nab",     label: "NAB" },
