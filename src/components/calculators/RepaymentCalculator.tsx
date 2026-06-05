@@ -97,7 +97,7 @@ function inputCls(err?: boolean) {
 
 function chipCls(selected: boolean) {
   return [
-    "px-4 py-2.5 rounded-lg border cursor-pointer text-sm transition-all duration-150 select-none",
+    "px-2 py-2 rounded-lg border cursor-pointer text-sm transition-all duration-150 select-none text-center",
     selected
       ? "border-coral bg-coral/5 text-coral font-medium"
       : "border-gray-200 text-gray-600 hover:border-gray-300 bg-white",
@@ -228,7 +228,7 @@ export default function RepaymentCalculator() {
             <span className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm">年</span>
           </div>
           {termErr && <p className="text-red-500 text-xs mt-1.5">请输入有效的贷款年限</p>}
-          <div className="flex flex-wrap gap-2 mt-3">
+          <div className="grid grid-cols-5 gap-1.5 mt-3">
             {TERM_CHIPS.map((y) => (
               <button
                 key={y}
