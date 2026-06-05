@@ -24,7 +24,7 @@ export default function PrivacyPage() {
           <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 sm:p-12 prose prose-gray max-w-none prose-headings:text-[#1A2B5E] prose-headings:font-bold prose-a:text-[#E8634A] prose-a:no-underline hover:prose-a:underline">
 
             <p className="text-gray-500 text-sm">
-              FINC INVEST Pty Ltd（以下简称"FINC"、"我们"）重视您的隐私，并承诺依照澳大利亚《隐私法》（Privacy Act 1988）及《澳大利亚隐私原则》（Australian Privacy Principles，APPs）处理您的个人信息。
+              FINC INVEST Pty Ltd（以下简称"FINC"、"我们"）重视您的隐私，并承诺依照澳大利亚《隐私法》（Privacy Act 1988）及《澳大利亚隐私原则》（Australian Privacy Principles，APPs）处理您的个人信息。FINC 持有澳大利亚信贷代理人资格（Australian Credit Representative，ACR）。
             </p>
 
             <h2>1. 我们收集哪些信息</h2>
@@ -105,7 +105,6 @@ export default function PrivacyPage() {
             <p>如对本隐私政策有任何疑问，或希望行使您的隐私权利，请通过以下方式联系我们：</p>
             <ul>
               <li>网站联系表单：<Link href="/contact">finc.net.au/contact</Link></li>
-              <li>电话：0451 827 455</li>
             </ul>
 
             <h2>10. 政策更新</h2>

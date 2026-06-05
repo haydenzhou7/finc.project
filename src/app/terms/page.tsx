@@ -29,7 +29,7 @@ export default function TermsPage() {
 
             <h2>1. 关于 FINC HOME LOANS</h2>
             <p>
-              FINC HOME LOANS 由 FINC INVEST Pty Ltd（以下简称"FINC"、"我们"）运营。FINC 是一家持牌澳洲信贷经纪机构，持有澳大利亚信贷执照（Australian Credit Licence）。我们为客户提供住房贷款、投资贷款及相关金融产品的经纪服务。
+              FINC HOME LOANS 由 FINC INVEST Pty Ltd（以下简称"FINC"、"我们"）运营。FINC 是一家持牌澳洲信贷经纪机构，持有澳大利亚信贷代理人资格（Australian Credit Representative，ACR）。我们为客户提供住房贷款、投资贷款及相关金融产品的经纪服务。
             </p>
 
             <h2>2. 网站内容的性质</h2>
@@ -95,7 +95,6 @@ export default function TermsPage() {
             </p>
             <ul>
               <li>网站联系表单：<Link href="/contact">finc.net.au/contact</Link></li>
-              <li>电话：0451 827 455</li>
             </ul>
 
           </div>
