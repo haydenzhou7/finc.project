@@ -74,6 +74,84 @@ function remarkInjectCTA() {
   };
 }
 
+// ── Remark plugin: auto-link keywords to internal pages ──────────────────────
+
+const KEYWORD_RULES: Array<{ patterns: string[]; href: string }> = [
+  { patterns: ["印花税"], href: "/calculators/stamp-duty" },
+  { patterns: ["还款计算", "每月还款", "月供"], href: "/calculators/repayment" },
+  {
+    patterns: ["首次置业", "首次购房"],
+    href: "/news/first-home-buyers-should-avoid-these-mistakes",
+  },
+  { patterns: ["转贷", "refinance", "Refinance"], href: "/news/refinance" },
+  { patterns: ["投资房", "投资贷款"], href: "/news/investment-loans" },
+  { patterns: ["联系我们", "免费咨询"], href: "/contact" },
+];
+
+const SKIP_NODE_TYPES = new Set([
+  "mdxJsxFlowElement",
+  "mdxJsxTextElement",
+  "code",
+  "inlineCode",
+  "html",
+  "heading",
+]);
+
+function remarkKeywordLinks({ slug }: { slug: string }) {
+  const currentPath = `/news/${slug}`;
+  const activeRules = KEYWORD_RULES.filter((r) => r.href !== currentPath);
+  const usedHrefs = new Set<string>();
+
+  function processTextValue(value: string): unknown[] {
+    for (const rule of activeRules) {
+      if (usedHrefs.has(rule.href)) continue;
+      for (const keyword of rule.patterns) {
+        const idx = value.indexOf(keyword);
+        if (idx !== -1) {
+          usedHrefs.add(rule.href);
+          const before = value.slice(0, idx);
+          const after = value.slice(idx + keyword.length);
+          const result: unknown[] = [];
+          if (before) result.push(...processTextValue(before));
+          result.push({
+            type: "link",
+            url: rule.href,
+            title: null,
+            children: [{ type: "text", value: keyword }],
+          });
+          if (after) result.push(...processTextValue(after));
+          return result;
+        }
+      }
+    }
+    return [{ type: "text", value }];
+  }
+
+  function processChildren(children: unknown[], insideLink: boolean): unknown[] {
+    const out: unknown[] = [];
+    for (const child of children) {
+      const node = child as { type: string; value?: string; children?: unknown[] };
+      if (SKIP_NODE_TYPES.has(node.type)) {
+        out.push(node);
+        continue;
+      }
+      if (node.type === "text" && !insideLink && typeof node.value === "string") {
+        out.push(...processTextValue(node.value));
+      } else if (node.children) {
+        const deeper = insideLink || node.type === "link";
+        out.push({ ...node, children: processChildren(node.children, deeper) });
+      } else {
+        out.push(node);
+      }
+    }
+    return out;
+  }
+
+  return (tree: { children: unknown[] }) => {
+    tree.children = processChildren(tree.children, false);
+  };
+}
+
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
 function formatDate(dateStr: string): string {
@@ -82,11 +160,11 @@ function formatDate(dateStr: string): string {
   return d.toLocaleDateString("zh-CN", { year: "numeric", month: "long", day: "numeric" });
 }
 
-async function renderMDX(body: string) {
+async function renderMDX(body: string, slug: string) {
   try {
     const code = await compile(body, {
       outputFormat: "function-body",
-      remarkPlugins: [remarkGfm, remarkInjectCTA],
+      remarkPlugins: [remarkGfm, remarkInjectCTA, [remarkKeywordLinks, { slug }]],
     });
     const components = useMDXComponents({});
     const { default: Content } = await run(code, {
@@ -137,7 +215,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
   if (!post) notFound();
 
   const { meta, body } = post;
-  const content = await renderMDX(body);
+  const content = await renderMDX(body, slug);
 
   const allPosts = getAllPosts();
   const related = allPosts.filter((p) => p.slug !== slug).slice(0, 3);
@@ -257,7 +335,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
             </header>
 
             {/* MDX body */}
-            <div className="prose prose-lg max-w-none prose-headings:text-[#1A2B5E] prose-a:text-[#E8634A] prose-strong:text-[#1A2B5E] prose-headings:font-bold prose-a:no-underline hover:prose-a:underline prose-blockquote:border-l-[#E8634A] prose-blockquote:text-gray-600 prose-li:text-gray-700 prose-p:text-gray-700">
+            <div className="prose prose-lg max-w-none prose-headings:text-[#1A2B5E] prose-a:text-[#E8634A] prose-strong:text-[#1A2B5E] prose-headings:font-bold prose-a:underline prose-blockquote:border-l-[#E8634A] prose-blockquote:text-gray-600 prose-li:text-gray-700 prose-p:text-gray-700">
               {content}
             </div>
 
