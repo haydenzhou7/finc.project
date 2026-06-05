@@ -6,6 +6,7 @@ import * as runtime from "react/jsx-runtime";
 import remarkGfm from "remark-gfm";
 import { getAllSlugs, getPostBySlug, getAllPosts, type PostMeta } from "@/lib/posts";
 import { useMDXComponents } from "@/mdx-components";
+import ArticleCTA from "@/components/ArticleCTA";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ?? "https://finc.net.au";
 
@@ -44,6 +45,36 @@ export async function generateMetadata(
   };
 }
 
+// ── Remark plugin: inject <ArticleCTA /> every ~400 chars of text ─────────────
+
+function textLen(node: unknown): number {
+  if (!node || typeof node !== "object") return 0;
+  const n = node as { value?: string; children?: unknown[] };
+  if (typeof n.value === "string") return n.value.length;
+  if (Array.isArray(n.children)) return n.children.reduce((s: number, c) => s + textLen(c), 0);
+  return 0;
+}
+
+function remarkInjectCTA() {
+  const INTERVAL = 400;
+  return (tree: { children: unknown[] }) => {
+    let count = 0;
+    const out: unknown[] = [];
+    for (const node of tree.children) {
+      out.push(node);
+      const n = node as { type?: string };
+      // Don't insert CTA after headings, horizontal rules, or existing JSX elements
+      if (n.type === "heading" || n.type === "thematicBreak" || n.type === "mdxJsxFlowElement") continue;
+      count += textLen(node);
+      if (count >= INTERVAL) {
+        out.push({ type: "mdxJsxFlowElement", name: "ArticleCTA", attributes: [], children: [] });
+        count = 0;
+      }
+    }
+    tree.children = out;
+  };
+}
+
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
 function formatDate(dateStr: string): string {
@@ -56,7 +87,7 @@ async function renderMDX(body: string) {
   try {
     const code = await compile(body, {
       outputFormat: "function-body",
-      remarkPlugins: [remarkGfm],
+      remarkPlugins: [remarkGfm, remarkInjectCTA],
     });
     const components = useMDXComponents({});
     const { default: Content } = await run(code, {
@@ -230,6 +261,9 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
             <div className="prose prose-lg max-w-none prose-headings:text-[#1A2B5E] prose-a:text-[#E8634A] prose-strong:text-[#1A2B5E] prose-headings:font-bold prose-a:no-underline hover:prose-a:underline prose-blockquote:border-l-[#E8634A] prose-blockquote:text-gray-600 prose-li:text-gray-700 prose-p:text-gray-700">
               {content}
             </div>
+
+            {/* End-of-article CTA */}
+            <ArticleCTA />
 
             {/* Dev hint */}
             {isDev && (

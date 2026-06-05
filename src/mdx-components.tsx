@@ -1,4 +1,5 @@
 import type { MDXComponents } from "mdx/types";
+import ArticleCTA from "@/components/ArticleCTA";
 import RepaymentCalculator from "@/components/calculators/RepaymentCalculator";
 import FAQ from "@/components/mdx/FAQ";
 import RBARateSection from "@/components/mdx/RBARateSection";
@@ -49,6 +50,7 @@ function MdxTd({ children }: { children: React.ReactNode }) {
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
     ...components,
+    ArticleCTA,
     RepaymentCalculator,
     FAQ,
     RBARateSection,
