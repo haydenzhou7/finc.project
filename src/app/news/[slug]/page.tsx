@@ -6,7 +6,6 @@ import * as runtime from "react/jsx-runtime";
 import remarkGfm from "remark-gfm";
 import { getAllSlugs, getPostBySlug, getAllPosts, type PostMeta } from "@/lib/posts";
 import { useMDXComponents } from "@/mdx-components";
-import ArticleCTA from "@/components/ArticleCTA";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ?? "https://finc.net.au";
 
@@ -45,7 +44,7 @@ export async function generateMetadata(
   };
 }
 
-// ── Remark plugin: inject <ArticleCTA /> every ~400 chars of text ─────────────
+// ── Remark plugin: inject <ArticleCTA /> every ~600 chars of text ─────────────
 
 function textLen(node: unknown): number {
   if (!node || typeof node !== "object") return 0;
@@ -56,7 +55,7 @@ function textLen(node: unknown): number {
 }
 
 function remarkInjectCTA() {
-  const INTERVAL = 400;
+  const INTERVAL = 600;
   return (tree: { children: unknown[] }) => {
     let count = 0;
     const out: unknown[] = [];
@@ -261,9 +260,6 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
             <div className="prose prose-lg max-w-none prose-headings:text-[#1A2B5E] prose-a:text-[#E8634A] prose-strong:text-[#1A2B5E] prose-headings:font-bold prose-a:no-underline hover:prose-a:underline prose-blockquote:border-l-[#E8634A] prose-blockquote:text-gray-600 prose-li:text-gray-700 prose-p:text-gray-700">
               {content}
             </div>
-
-            {/* End-of-article CTA */}
-            <ArticleCTA />
 
             {/* Dev hint */}
             {isDev && (
