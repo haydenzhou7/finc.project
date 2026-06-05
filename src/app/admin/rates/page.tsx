@@ -80,6 +80,7 @@ export default function AdminRatesPage() {
   const [year,     setYear]     = useState(String(now.getFullYear()));
   const [month,    setMonth]    = useState(String(now.getMonth() + 1));
   const [password, setPassword] = useState("");
+  const [rba,      setRba]      = useState({ rate: "4.35", note: "2026年5月RBA议息会议决定加息25个基点" });
   const [variable, setVariable] = useState<Record<string, VariableRow>>(DEFAULT_VARIABLE);
   const [fixed,    setFixed]    = useState<Record<string, FixedRow>>(DEFAULT_FIXED);
   const [status,   setStatus]   = useState<"idle" | "loading" | "ok" | "error">("idle");
@@ -106,6 +107,7 @@ export default function AdminRatesPage() {
           password,
           year:  Number(year),
           month: Number(month),
+          rba,
           rates: { variable, fixed },
         }),
       });
@@ -178,7 +180,40 @@ export default function AdminRatesPage() {
           </div>
         </section>
 
-        {/* ── Section 2: Variable Rates ── */}
+        {/* ── Section 2: RBA Cash Rate ── */}
+        <section className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+          <h2 className="text-base font-bold text-[#1A2B5E] mb-5">RBA 现金利率</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-xs font-medium text-gray-500 mb-1.5">现金利率（%）</label>
+              <div className="relative">
+                <input
+                  type="number"
+                  step="0.01"
+                  min="0"
+                  max="20"
+                  value={rba.rate}
+                  onChange={(e) => setRba((prev) => ({ ...prev, rate: e.target.value }))}
+                  className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm font-mono text-right outline-none focus:ring-2 focus:ring-[#E8634A]/40 focus:border-[#E8634A]"
+                  placeholder="4.35"
+                />
+                <span className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-xs text-gray-400">%</span>
+              </div>
+            </div>
+            <div>
+              <label className="block text-xs font-medium text-gray-500 mb-1.5">备注说明</label>
+              <input
+                type="text"
+                value={rba.note}
+                onChange={(e) => setRba((prev) => ({ ...prev, note: e.target.value }))}
+                className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#E8634A]/40 focus:border-[#E8634A]"
+                placeholder="例：2026年5月RBA议息会议决定加息25个基点"
+              />
+            </div>
+          </div>
+        </section>
+
+        {/* ── Section 3: Variable Rates ── */}
         <section className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
           <h2 className="text-base font-bold text-[#1A2B5E] mb-1">浮动利率（Variable Rate）</h2>
           <p className="text-xs text-gray-400 mb-5">蓝色高亮列（自住/投资还本付息）在表格中会加粗显示</p>

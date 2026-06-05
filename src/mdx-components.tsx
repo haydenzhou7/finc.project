@@ -1,6 +1,7 @@
 import type { MDXComponents } from "mdx/types";
 import RepaymentCalculator from "@/components/calculators/RepaymentCalculator";
 import FAQ from "@/components/mdx/FAQ";
+import RBARateSection from "@/components/mdx/RBARateSection";
 import StampDutyCalculator from "@/components/mdx/StampDutyCalculator";
 
 // ── Styled table components ───────────────────────────────────────────────────
@@ -50,6 +51,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     ...components,
     RepaymentCalculator,
     FAQ,
+    RBARateSection,
     StampDutyCalculator,
     table: MdxTable,
     thead: MdxThead,

@@ -23,6 +23,7 @@ interface RequestBody {
   password: string;
   month: number;
   year: number;
+  rba: { rate: string; note: string };
   rates: RatesPayload;
 }
 
@@ -91,7 +92,7 @@ const CN_MONTHS: Record<number, string> = {
 export async function POST(req: NextRequest) {
   // ── Auth ──────────────────────────────────────────────────────────────────
   const body = (await req.json()) as RequestBody;
-  const { password, month, year, rates } = body;
+  const { password, month, year, rba, rates } = body;
 
   if (!password || password !== process.env.ADMIN_PASSWORD) {
     return NextResponse.json({ error: "密码错误" }, { status: 401 });
@@ -138,6 +139,8 @@ export async function POST(req: NextRequest) {
   let updated = raw
     .replace(/^title:.*$/m,        `title: "${newTitle}"`)
     .replace(/^lastModified:.*$/m, `lastModified: "${lastModified}"`)
+    .replace(/^rbaCashRate:.*$/m,  `rbaCashRate: "${rba.rate}"`)
+    .replace(/^rbaNote:.*$/m,      `rbaNote: "${rba.note}"`)
     .replace(/^excerpt:.*$/m,      `excerpt: "${newExcerpt}"`);
 
   // ── Replace table sections ───────────────────────────────────────────────
@@ -149,6 +152,11 @@ export async function POST(req: NextRequest) {
   updated = updated.replace(
     /\{\/\* FIXED_START \*\/\}[\s\S]*?\{\/\* FIXED_END \*\/\}/,
     `{/* FIXED_START */}\n\n${buildFixedTable(rates.fixed)}\n\n{/* FIXED_END */}`
+  );
+
+  updated = updated.replace(
+    /\{\/\* RBA_START \*\/\}[\s\S]*?\{\/\* RBA_END \*\/\}/,
+    `{/* RBA_START */}\n<RBARateSection rbaCashRate="${rba.rate}" rbaNote="${rba.note}" />\n{/* RBA_END */}`
   );
 
   // ── Commit to GitHub ─────────────────────────────────────────────────────
