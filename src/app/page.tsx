@@ -47,18 +47,18 @@ const features: { icon: LucideIcon; title: string; description: string }[] = [
 ];
 
 const services: { title: string; subtitle: string; icon: LucideIcon; href: string }[] = [
-  { title: "住房贷款", subtitle: "Home Loans", icon: Home, href: "/contact" },
-  { title: "投资贷款", subtitle: "Investment Loans", icon: TrendingUp, href: "/contact" },
-  { title: "转贷", subtitle: "Refinance", icon: RefreshCw, href: "/contact" },
-  { title: "首次购房者", subtitle: "First Home Buyers", icon: Key, href: "/contact" },
-  { title: "自雇贷款", subtitle: "Self-Employed Loans", icon: Briefcase, href: "/contact" },
-  { title: "非居民贷款", subtitle: "Non-Resident Loans", icon: Globe, href: "/contact" },
-  { title: "商业贷款", subtitle: "Commercial Loans", icon: Building2, href: "/contact" },
-  { title: "建筑贷款", subtitle: "Construction Loans", icon: HardHat, href: "/contact" },
-  { title: "开发贷款", subtitle: "Development Loans", icon: Landmark, href: "/contact" },
-  { title: "过桥贷款", subtitle: "Bridging Loans", icon: ArrowLeftRight, href: "/contact" },
-  { title: "个人贷款", subtitle: "Personal Loans", icon: User, href: "/contact" },
-  { title: "车贷", subtitle: "Car Loans", icon: Car, href: "/contact" },
+  { title: "住房贷款", subtitle: "Home Loans", icon: Home, href: "/news/pre-approval-guide" },
+  { title: "投资贷款", subtitle: "Investment Loans", icon: TrendingUp, href: "/news/investment-loans" },
+  { title: "转贷", subtitle: "Refinance", icon: RefreshCw, href: "/news/refinance" },
+  { title: "首次购房者", subtitle: "First Home Buyers", icon: Key, href: "/news/first-home-buyers-should-avoid-these-mistakes" },
+  { title: "自雇贷款", subtitle: "Self-Employed Loans", icon: Briefcase, href: "/news/home-loan-for-self-employed" },
+  { title: "非居民贷款", subtitle: "Non-Resident Loans", icon: Globe, href: "/news/foreign-buyer-and-expat-loans" },
+  { title: "商业贷款", subtitle: "Commercial Loans", icon: Building2, href: "/news/commercial-loans" },
+  { title: "建筑贷款", subtitle: "Construction Loans", icon: HardHat, href: "/news/construction-loan" },
+  { title: "开发贷款", subtitle: "Development Loans", icon: Landmark, href: "/news/development-loans" },
+  { title: "过桥贷款", subtitle: "Bridging Loans", icon: ArrowLeftRight, href: "/news/bridging-loan" },
+  { title: "个人贷款", subtitle: "Personal Loans", icon: User, href: "/news/personal-loans" },
+  { title: "车贷", subtitle: "Car Loans", icon: Car, href: "/news/car-loans-australia" },
 ];
 
 const steps = [
