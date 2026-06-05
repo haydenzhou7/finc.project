@@ -13,7 +13,7 @@ export default function ArticleCTA() {
       </div>
       <Link
         href="/contact"
-        className="shrink-0 inline-block bg-[#E8634A] hover:bg-[#E8634A]/90 text-white font-semibold text-sm sm:text-base px-6 py-3 rounded-xl transition-colors duration-200 text-center whitespace-nowrap"
+        className="shrink-0 block w-full sm:w-auto sm:inline-block bg-[#E8634A] hover:bg-[#E8634A]/90 text-white font-semibold text-sm sm:text-base px-6 py-3 rounded-xl transition-colors duration-200 text-center whitespace-nowrap"
       >
         免费房贷咨询 →
       </Link>
