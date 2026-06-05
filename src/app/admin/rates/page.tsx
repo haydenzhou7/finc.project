@@ -263,7 +263,7 @@ export default function AdminRatesPage() {
         {/* ── Section 3: Fixed Rates ── */}
         <section className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
           <h2 className="text-base font-bold text-[#1A2B5E] mb-1">固定利率（Fixed Rate）—— 自住房还本付息</h2>
-          <p className="text-xs text-gray-400 mb-5">蓝色高亮列（3年）在表格中会加粗显示。其他银行行自动生成，无需填写。</p>
+          <p className="text-xs text-gray-400 mb-5">蓝色高亮列（2年）在表格中会加粗显示。其他银行行自动生成，无需填写。</p>
 
           <div className="overflow-x-auto">
             <table className="min-w-full text-sm">
@@ -271,10 +271,10 @@ export default function AdminRatesPage() {
                 <tr className="bg-[#1A2B5E] text-white">
                   <th className="px-4 py-2.5 text-left font-semibold text-xs w-44">银行</th>
                   <th className="px-3 py-2.5 text-center font-semibold text-xs min-w-[110px]">1年固定</th>
-                  <th className="px-3 py-2.5 text-center font-semibold text-xs min-w-[110px]">2年固定</th>
                   <th className="px-3 py-2.5 text-center font-semibold text-xs min-w-[110px]">
-                    3年固定 ★
+                    2年固定 ★
                   </th>
+                  <th className="px-3 py-2.5 text-center font-semibold text-xs min-w-[110px]">3年固定</th>
                   <th className="px-3 py-2.5 text-center font-semibold text-xs min-w-[110px]">5年固定</th>
                 </tr>
               </thead>
@@ -286,10 +286,10 @@ export default function AdminRatesPage() {
                       <RateInput value={fixed[key]?.y1 ?? ""} onChange={(v) => setFix(key, "y1", v)} />
                     </td>
                     <td className="px-3 py-2">
-                      <RateInput value={fixed[key]?.y2 ?? ""} onChange={(v) => setFix(key, "y2", v)} />
+                      <RateInput highlight value={fixed[key]?.y2 ?? ""} onChange={(v) => setFix(key, "y2", v)} />
                     </td>
                     <td className="px-3 py-2">
-                      <RateInput highlight value={fixed[key]?.y3 ?? ""} onChange={(v) => setFix(key, "y3", v)} />
+                      <RateInput value={fixed[key]?.y3 ?? ""} onChange={(v) => setFix(key, "y3", v)} />
                     </td>
                     <td className="px-3 py-2">
                       <RateInput value={fixed[key]?.y5 ?? ""} onChange={(v) => setFix(key, "y5", v)} />

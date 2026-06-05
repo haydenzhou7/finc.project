@@ -71,10 +71,10 @@ function buildFixedTable(data: Record<string, FixedRateRow>): string {
   const rows = FIXED_BANKS.map(({ key, name }) => {
     const r = data[key] ?? { y1: "", y2: "", y3: "", y5: "" };
     // Bold the 3-year term as it's typically the most competitive
-    return `| ${name} | ${fmt(r.y1)} | ${fmt(r.y2)} | **${fmt(r.y3)}** | ${fmt(r.y5)} |`;
+    return `| ${name} | ${fmt(r.y1)} | **${fmt(r.y2)}** | ${fmt(r.y3)} | ${fmt(r.y5)} |`;
   }).join("\n");
 
-  const other = "| 其他银行（ING / Macquarie / St.George 等） | [获取利率](/contact) | [获取利率](/contact) | [获取利率](/contact) | [获取利率](/contact) |";
+  const other = "| 其他银行 | [获取利率](/contact) | [获取利率](/contact) | [获取利率](/contact) | [获取利率](/contact) |";
 
   return `${header}\n${rows}\n${other}`;
 }

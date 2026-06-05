@@ -20,7 +20,7 @@ function MdxThead({ children }: { children: React.ReactNode }) {
 
 function MdxTh({ children }: { children: React.ReactNode }) {
   return (
-    <th className="px-4 py-3 text-left font-semibold text-xs uppercase tracking-wide whitespace-nowrap">
+    <th className="px-4 py-3 text-center font-semibold text-xs uppercase tracking-wide whitespace-nowrap">
       {children}
     </th>
   );
@@ -40,7 +40,7 @@ function MdxTr({ children }: { children: React.ReactNode }) {
 
 function MdxTd({ children }: { children: React.ReactNode }) {
   return (
-    <td className="px-4 py-2.5 text-gray-700 [&>strong]:text-[#1A2B5E] [&>strong]:font-bold">
+    <td className="px-4 py-2.5 text-center text-gray-700 [&>strong]:text-[#1A2B5E] [&>strong]:font-bold">
       {children}
     </td>
   );
