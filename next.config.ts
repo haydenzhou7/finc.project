@@ -11,6 +11,13 @@ const nextConfig: NextConfig = {
         destination: "/news/australia-mortgage-rates",
         permanent: true,
       },
+      // Redirect bare /:slug to /news/:slug, excluding known top-level routes
+      {
+        source:
+          "/:slug((?!news|about|admin|api|calculators|contact|privacy|terms)[^/]+)",
+        destination: "/news/:slug",
+        permanent: true,
+      },
     ];
   },
 };
