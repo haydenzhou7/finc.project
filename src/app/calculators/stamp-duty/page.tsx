@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
 
 // ── Types ──────────────────────────────────────────────────────────────────────
@@ -480,6 +480,12 @@ function Toggle({ on, onToggle, label }: { on: boolean; onToggle: () => void; la
 
 export default function StampDutyPage() {
   const [state, setState]         = useState<State | "">("");
+
+  useEffect(() => {
+    const s = new URLSearchParams(window.location.search).get("state");
+    const valid: State[] = ["NSW", "VIC", "QLD", "WA", "SA", "TAS", "ACT", "NT"];
+    if (s && valid.includes(s as State)) setState(s as State);
+  }, []);
   const [priceStr, setPriceStr]   = useState("");
   const [buyerType, setBuyerType] = useState<BuyerType>("owner");
   const [propType, setPropType]   = useState<PropertyType>("established");

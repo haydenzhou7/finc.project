@@ -1,6 +1,13 @@
 import Link from "next/link";
 
-export default function StampDutyCalculator() {
+interface Props {
+  state?: string;
+}
+
+export default function StampDutyCalculator({ state }: Props = {}) {
+  const href = state
+    ? `/calculators/stamp-duty?state=${state}`
+    : "/calculators/stamp-duty";
   return (
     <div className="not-prose my-6 p-5 bg-navy/5 border border-navy/10 rounded-xl flex flex-col sm:flex-row items-start sm:items-center gap-4">
       <div className="flex-1">
@@ -10,7 +17,7 @@ export default function StampDutyCalculator() {
         </p>
       </div>
       <Link
-        href="/calculators/stamp-duty"
+        href={href}
         className="shrink-0 inline-flex items-center gap-1.5 bg-coral hover:bg-coral/90 text-white text-sm font-semibold px-4 py-2.5 rounded-lg transition-colors duration-150 shadow-sm"
       >
         立即计算
