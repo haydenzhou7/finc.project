@@ -5,6 +5,12 @@ const nextConfig: NextConfig = {
   pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
   async redirects() {
     return [
+      // Redirect old FIRB article slug to new canonical slug
+      {
+        source: "/news/2024-fees-and-policy",
+        destination: "/news/firb-fees-foreign-investment",
+        permanent: true,
+      },
       // Permanent redirect from old rate article URL to canonical URL
       {
         source: "/news/interest-rate-update",
