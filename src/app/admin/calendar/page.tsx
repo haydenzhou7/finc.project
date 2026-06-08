@@ -286,6 +286,36 @@ export default function AdminCalendarPage() {
           </div>
         </section>
 
+        {/* Table 5: Backlog */}
+        <section>
+          <SectionTitle>5. 待办事项（后续做）</SectionTitle>
+          <div className="overflow-x-auto rounded-xl shadow-sm border border-gray-200">
+            <table className="w-full border-collapse">
+              <thead>
+                <tr>
+                  <Th>任务</Th>
+                  <Th>说明</Th>
+                </tr>
+              </thead>
+              <tbody>
+                {[
+                  {
+                    task: "保险 Referral 页面重写",
+                    desc: "把现有三篇商业保险文章（cyber / PI / public liability）改成房屋保险 / 房东保险方向，更贴近受众。先查 BizCover、iSelect、Compare the Market 等平台有无房屋保险 referral 计划及佣金结构，再动笔。",
+                  },
+                ].map((row, i) => (
+                  <Tr key={i} stripe={i % 2 === 1}>
+                    <Td>
+                      <span className="font-semibold text-gray-900">{row.task}</span>
+                    </Td>
+                    <Td>{row.desc}</Td>
+                  </Tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+
         <p className="text-xs text-gray-400 text-center pb-4">
           内部页面 · 数据截至 2026年6月 · 如有政策变动请同步更新本页
         </p>
