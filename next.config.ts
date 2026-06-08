@@ -20,7 +20,7 @@ const nextConfig: NextConfig = {
       // Redirect bare /:slug to /news/:slug, excluding known top-level routes
       {
         source:
-          "/:slug((?!news|about|admin|api|calculators|contact|privacy|terms)[^/]+)",
+          "/:slug((?!news|about|admin|api|calculators|contact|privacy|terms)[^/.]+)",
         destination: "/news/:slug",
         permanent: true,
       },
