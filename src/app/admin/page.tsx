@@ -1,4 +1,5 @@
 import Link from "next/link";
+import AdminGuard from "@/components/admin/AdminGuard";
 
 const CARDS = [
   {
@@ -25,6 +26,7 @@ const CARDS = [
 
 export default function AdminPage() {
   return (
+    <AdminGuard>
     <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center px-4 py-16">
       <div className="w-full max-w-lg space-y-8">
         <div className="text-center">
@@ -67,5 +69,6 @@ export default function AdminPage() {
         </div>
       </div>
     </div>
+    </AdminGuard>
   );
 }

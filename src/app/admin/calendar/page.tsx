@@ -1,3 +1,5 @@
+import AdminGuard from "@/components/admin/AdminGuard";
+
 const NAVY = "#1A2B5E";
 const ORANGE = "#E8634A";
 
@@ -58,6 +60,7 @@ function Tr({ children, stripe }: { children: React.ReactNode; stripe: boolean }
 
 export default function AdminCalendarPage() {
   return (
+    <AdminGuard>
     <div className="min-h-screen bg-gray-100 py-10 px-4">
       <div className="max-w-5xl mx-auto space-y-10">
 
@@ -288,5 +291,6 @@ export default function AdminCalendarPage() {
         </p>
       </div>
     </div>
+    </AdminGuard>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import AdminGuard from "@/components/admin/AdminGuard";
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -138,6 +139,7 @@ export default function AdminRatesPage() {
   }
 
   return (
+    <AdminGuard>
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
       <header className="bg-[#1A2B5E] text-white px-6 py-4 flex items-center gap-3">
@@ -371,5 +373,6 @@ export default function AdminRatesPage() {
         </p>
       </form>
     </div>
+    </AdminGuard>
   );
 }
